@@ -70,28 +70,47 @@ def photo(request):
 
             if request.session['doc_type'] == 'aadhar':
                 request.session['doc_name'] = result[2]
-                request.session['doc_id'] = result[5]
-                request.session['doc_dob'] = result[3].split(':')[1]
+                #request.session['doc_id'] = result[5]
+                #request.session['doc_dob'] = result[3].split(':')[1]
                 for i in result:
                     x = re.search('DOB', i)
                     if x:
                         request.session['doc_dob'] = i.split(':')[1]
-                    y = re.search('[0-9]{4}\s{4}', i)
+                        break
+                    else:
+                        request.session['doc_dob'] = "Enter your DOB"
+                for i in result:
+                    y = re.search('([0-9]{4} ){2}', i)
                     if y:
                         request.session['doc_id'] = i
+                        break
+                    else:
+                        request.session['doc_id'] = "Enter your UIDAI ID"
+
+
 
             #if request.session['doc_type'] == 'pan':
                 #request.session['doc_name'] = result[5]
                 #request.session['doc_id'] = result[3]
                 #request.session['doc_dob'] = result[9]
             if request.session['doc_type'] == 'pan':
+                #PAN NUMBER
                 for i in result:
-                    x_id = re.search('[A-Z0-9]{10}', i)
-                    x_dob = re.search('/', i)
+                    x_id = re.search('([A-Z]{5}[0-9]{4}[A-Z])', i)
                     if x_id:
                         request.session['doc_id'] = i
+                        break
+                    else:
+                        request.session['doc_id'] = "Enter your PAN ID"
+                #DOB
+                for i in result:
+                    x_dob = re.search('/', i)
                     if x_dob:
                         request.session['doc_dob'] = i
+                        break
+                    else:
+                        request.session['doc_dob'] = "Enter your DOB"
+                #NAME
                 c = re.search('[A-Z0-9]{10}', result[5])
                 if c:
                     request.session['doc_name'] = result[1]
@@ -104,7 +123,8 @@ def photo(request):
             #return redirect('index')
     else:
         im_form = photo_form()
-    return render(request,'ocrapp/base.html',{'im_form':im_form})
+    return render(request,'ocrapp/index.html',{'im_form':im_form})
+
 
 
 #aadhar verification being done here
