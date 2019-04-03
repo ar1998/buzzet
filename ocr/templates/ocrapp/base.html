@@ -2,10 +2,35 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="HandheldFriendly" content="True" />
+    <link href="https://fonts.googleapis.com/css?family=Amaranth|Audiowide|Bangers" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% block extrahead %}
+    {% endblock %}
+    <title>ocr recognition</title>
+    <style>
+<style>
+
+</style>
   </head>
   <body>
-    {% block extra %}
+<header style="position:fixed; width:100%;">
+      {% include "ocrapp/header.html" %}
+    </header>
+    {% block body_block %}
     {% endblock %}
+    <div>
+    <h1>Upload Your Photo</h1>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ im_form.as_p }}
+        <button type="submit" name="image" value="upload">Upload</button>
+      </form>
+    </div>
+    <a href="{% url 'ocrapp:photo' %}">Click Me</a>
+    
   </body>
 </html>

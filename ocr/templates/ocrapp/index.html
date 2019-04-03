@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>ocr verification</title>
-  </head>
-  <body>
-    <div>
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ im_form.as_p }}
-        <button type="submit" name="image" value="upload">Upload</button>
-      </form>
-    </div>
-    <h1>hello</h1>
-  </body>
-</html>
+{% extends "ocrapp/base.html" %}
+{% load static %}
+{% block extrahead %}
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'style/index.css' %}">
+{% endblock %}
+{% block body_block %}
+<div class = "bg-image img1"></div>
+
+<div class = "bg-image img2"></div>
+    {% endblock %}

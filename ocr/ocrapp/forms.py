@@ -15,3 +15,10 @@ class pan_from(forms.ModelForm):
     class Meta:
         model = pan_registration_model
         fields = ['name','id_num','dob']
+
+class UserForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput, label = 'Your Password')
+
+    class Meta():
+        model = User
+        fields = ('username','email','password')
