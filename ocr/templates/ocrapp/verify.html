@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>verification page</title>
+  </head>
+  <body>
+    <div>
+      {{ doc_type }}
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ aadhar_from.as_p }}
+        <button type="submit" name="verify" value="submit">SUBMIT</button>
+      </form>
+    </div>
+  </body>
+</html>

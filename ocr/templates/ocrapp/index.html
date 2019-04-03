@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>ocr verification</title>
+  </head>
+  <body>
+    <div>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ im_form.as_p }}
+        <button type="submit" name="image" value="upload">Upload</button>
+      </form>
+    </div>
+    <h1>hello</h1>
+  </body>
+</html>
