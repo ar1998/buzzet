@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class photo(models.Model):
@@ -26,3 +27,6 @@ class pan_registration_model(models.Model):
     name = models.CharField(max_length=50)
     id_num = models.CharField(max_length=50,unique=True)
     dob = models.CharField(max_length=50)
+
+class UserProfileInfo(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
