@@ -251,7 +251,7 @@ def user_login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-
+        request.session['username'] = username
         user = authenticate(username=username,password=password)
 
         if user is not None:
@@ -276,3 +276,26 @@ from django.contrib.auth.views import LoginView, LogoutView
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('logout'))
+
+@login_required
+def feedback(request):
+    if request.method == 'POST':
+        feed_form = feedback_form(request.POST)
+
+        if feed_form.is_valid():
+            feed_form.save()
+
+    else:
+        def spch():
+
+            with sr.Microphone() as source:
+                print("SAY SOMETHING")
+                audio = r.listen(source)
+                print("TIME OVeR. THANKS")
+            text = r.recognize_google(audio)
+            return text
+
+        voice_text = spch()
+        username = request.session['username']
+        feed_form = feedback_form({'feedback_name':username,'feedback_comment':voice_text})
+    return render(request,'ocrapp/feedback.html',{'feedback_form':feed_form})

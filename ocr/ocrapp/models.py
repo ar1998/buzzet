@@ -30,3 +30,7 @@ class pan_registration_model(models.Model):
 
 class UserProfileInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+class feedback(models.Model):
+    feedback_name = models.CharField(max_length = 50)
+    feedback_comment = models.CharField(max_length = 100)
