@@ -23,18 +23,10 @@
   <header style="position:fixed; width:100%;">
       {% include "ocrapp/header.html" %}
     </header>
+
     {% block body_block %}
+    
     {% endblock %}
-    <h1>Hello<h1>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    {% if user.is_authenticated %}
-    
-    <button class="upload_id"><a href="{% url 'ocrapp:photo' %}">Upload Your ID proof</a></button>
-    
-    {% else%}
-    <h2>Don't Click Me<h2>
-    {%endif%}
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    
+
   </body>
 </html>
