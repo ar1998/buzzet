@@ -20,7 +20,8 @@
 -->
 
 <div class="login-bg-img">
-  <form action="{% url 'ocrapp:user_login' %}" class="login-container">
+  <form action="{% url 'ocrapp:user_login' %}" class="login-container" method = "post">
+      {% csrf_token %}
     <h1>Login</h1>
 
     <label for="username">Username:</label>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ feedback_form.as_p }}
+        <button type="submit" name="image" value="upload">submit feedback</button>
+      </form>
+    </div>
+  </body>
+</html>

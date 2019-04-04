@@ -22,3 +22,8 @@ class UserForm(forms.ModelForm):
     class Meta():
         model = User
         fields = ('username','email','password')
+
+class feedback_form(forms.ModelForm):
+    class Meta:
+        model = feedback
+        fields = ['feedback_name','feedback_comment']
