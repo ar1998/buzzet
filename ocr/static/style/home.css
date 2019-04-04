@@ -1,0 +1,18 @@
+{% load static %}
+
+.bg-image{
+	background-position: center;
+	background-repeat: no-repeat;
+    background-size: cover;
+    
+  
+}
+.img1{
+    background-image: url("/static/images/buzzet.jpg");
+	background-attachment: fixed;
+	background-position: relative;
+    height: 100%;
+    opacity: 1;
+    filter:(0px);
+    
+}
