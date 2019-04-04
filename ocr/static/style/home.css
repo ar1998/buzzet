@@ -16,3 +16,23 @@
     filter:(0px);
     
 }
+
+.upload_id{
+  background-color: rgba(226, 14, 14, 0.993); /* Black w/opacity/see-through */
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  padding: 20px;
+  text-align: center;
+}
+
+.upload_id:hover {
+  background-color: #3e8e41;
+  color: white;
+}

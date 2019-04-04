@@ -12,15 +12,17 @@ body, html {
 
 .login-bg-img {
   /* The image used */
-  background-image: url("fintech.jpg");
+  background-image: url("/static/images/fintech.jpg");
 
-  min-height: 380px;
+  min-height: 100%;
 
   /* Center and scale the image nicely */
+  padding-top:50px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+  z-index:-1;
 }
 
 /* Add styles to the form container */
