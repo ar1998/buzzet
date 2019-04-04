@@ -1,11 +1,12 @@
 {% extends "ocrapp/base.html" %}
 {% load static %}
 {% block extrahead %}
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'style/login.css' %}">
 {% endblock %}
 {% block body_block %}
 
-<div class="container-login">
+<!--<div class="container-login">
   <form action="{% url 'ocrapp:user_login' %}" method="post">
     {% csrf_token %}
     <label for="username">Username:</label>
@@ -16,5 +17,19 @@
   </form>
 
 </div>
+-->
 
+<div class="login-bg-img">
+  <form action="{% url 'ocrapp:user_login' %}" class="login-container">
+    <h1>Login</h1>
+
+    <label for="username">Username:</label>
+    <input type="text" name="username" placeholder="Enter your username" required>
+
+    <label for="password" >Password:</label>
+    <input type="password" name="password" placeholder="Enter your password" required>
+
+    <button type="submit" name="" class="login-btn">Login</button>
+  </form>
+</div>
 {% endblock body_block %}

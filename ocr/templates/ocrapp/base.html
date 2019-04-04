@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -8,6 +9,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'style/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/login.css' %}">
     {% block extrahead %}
     {% endblock %}
     <title>ocr recognition</title>
@@ -17,20 +20,21 @@
 </style>
   </head>
   <body>
-<header style="position:fixed; width:100%;">
+  <header style="position:fixed; width:100%;">
       {% include "ocrapp/header.html" %}
     </header>
     {% block body_block %}
     {% endblock %}
-    <div>
-    <h1>Upload Your Photo</h1>
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ im_form.as_p }}
-        <button type="submit" name="image" value="upload">Upload</button>
-      </form>
-    </div>
-    <a href="{% url 'ocrapp:photo' %}">Click Me</a>
+    <h1>Hello<h1>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    {% if user.is_authenticated %}
+    
+    <button class="upload_id"><a href="{% url 'ocrapp:photo' %}">Upload Your ID proof</a></button>
+    
+    {% else%}
+    <h2>Don't Click Me<h2>
+    {%endif%}
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     
   </body>
 </html>
