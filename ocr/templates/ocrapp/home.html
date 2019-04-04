@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'style/home.css' %}">
 {% endblock %}
 {% block body_block %}
+
    <div class = "bg-image img1"></div><br><br><br>
     {% if user.is_authenticated %}
     <div style="position:center;">
@@ -15,5 +16,6 @@
     <a onclick="document.getElementById('id02').style.display='block'" href=# %}"><button class="upload_id">Login to Continue</button></a>
     </div>
     {%endif%}
+
 
 {% endblock %}
