@@ -1,0 +1,18 @@
+certifi==2019.3.9
+chardet==3.0.4
+Django==2.1.7
+idna==2.8
+Pillow==5.4.1
+PyAudio==0.2.11
+pytz==2018.9
+requests==2.21.0
+SpeechRecognition==3.8.1
+urllib3==1.24.1
+
+
+'''
+If there comes Operational error :
+    python3 manage.py migrate --run-syncdb
+    python3 manage.py makemigrations
+    python3 manage.py migrate
+'''

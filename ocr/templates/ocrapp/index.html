@@ -5,7 +5,12 @@
 <link rel="stylesheet" type="text/css" href="{% static 'style/index.css' %}">
 {% endblock %}
 {% block body_block %}
-<div class = "bg-image img1"></div>
-
-<div class = "bg-image img2"></div>
-    {% endblock %}
+    <br><br><br><br><br><br><br><br>
+    <div  class="">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ im_form.as_p }}
+        <button type="submit" class="submit_card" name="image" value="upload" target="{% url 'ocrapp:aadhar' %}">Upload</button>
+      </form>
+    </div>
+{% endblock %}

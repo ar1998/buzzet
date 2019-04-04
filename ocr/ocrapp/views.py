@@ -9,10 +9,13 @@ import os
 import requests
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.views import LoginView, LogoutView
 
 #global variables
 
 #doc_name = "name"
+def home(request):
+    return render(request,'ocrapp/home.html')
 
 def index(request):
     return render(request, 'ocrapp/index.html')
@@ -258,14 +261,15 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
                 print("login successful")
-                return HttpResponseRedirect(reverse('index'))
+                return HttpResponseRedirect(reverse('home'))
+                #return render(request, 'ocrapp/index.html',)
             else:
                 return HttpResponse("account not active")
         else:
             print("login failed for {}".format(username))
             return HttpResponse("invalid login credentials !!")
     return render(request, 'ocrapp/login.html',)
-from django.contrib.auth.views import LoginView, LogoutView
+
 
 
 # class UserLoginView(LoginView):
@@ -276,6 +280,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('logout'))
+
 
 @login_required
 def feedback(request):
