@@ -1,13 +1,20 @@
 {% extends "ocrapp/base.html" %}
 {% load static %}
-
+{% block extrahead %}
+<meta http-equiv="" content="5; "{% url 'ocrapp:aadhar'%}">
+{% endblock %}
 {% block extra %}
 <br><br><br><br><br><br><br><br><br>
 <h1>result page</h1>
 <h2>
 
 {{ f_name }}
-
-
+<img src="{{ im_name }}" />
+<button type="submit" class="submit_id" name="image" value="upload" onclick="myFunction()">Click here to Form</button>
+<script>
+function myFunction() {
+  location.replace("{url 'ocrapp:aadhar'}")
+}
+</script>
 </h2>
 {% endblock %}

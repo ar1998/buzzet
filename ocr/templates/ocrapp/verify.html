@@ -1,17 +1,67 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>verification page</title>
-  </head>
-  <body>
-    <div>
+{% extends "ocrapp/base.html" %}
+{% load static %}
+{% block extrahead %}
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'style/verify.css' %}">
+
+{% endblock %}
+{% block body_block %}
+ <!--  <div>
       {{ doc_type }}
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ aadhar_from.as_p }}
         <button type="submit" name="verify" value="submit">SUBMIT</button>
       </form>
+  
     </div>
-  </body>
-</html>
+--> 
+
+<br><br><br><br>
+
+<div class="clearfix" style="width:100%%">
+            
+    <button type="button" onclick="document.getElementById('id03').style.display='block'" class="edit_form">Edit Form</button>
+    <button type="submit" class="edit_form_submit" name="" target="{% url 'ocrapp:aadhar' %}">Submit</button>
+</div>
+
+<div id="id03" class="modal">
+    <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
+    <form class="modal-content" action="{% url 'ocrapp:aadhar' %}" method="post">
+        <div class="container-signup">
+            <h1>Edit Menu</h1>
+            <hr>
+            {% csrf_token %}
+            {{ aadhar_from.as_p}}
+            <!--<label for="doc_name">Doc Name : </label>
+            <input type="text" id="doc_name" name="doc_name" value='{{doc_name}}' required>
+            
+            <label for="doc_id" >Doc Id : </label>
+            <input type="text" id="doc_id" placeholder="Doc Id" value="{{doc_id}}" name="{{doc_id}}" required></p>
+
+            <label for="doc_dob" >Doc dob : </label>
+            <input type="text" id="doc_dob" placeholder="Password" name="doc_dob" required></p>
+-->
+            
+            <div class="clearfix">
+            
+                <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
+                <button type="submit" class="signupbtn" name="" target="{% url 'ocrapp:aadhar' %}">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById('id03');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+{% endblock%}

@@ -11,5 +11,6 @@ urlpatterns = [
     path('user_logout/',views.LogoutView.as_view(),name='logout'),
     path('register/',views.register,name='register'),
 	path('feedback/',views.feedback,name = 'feedback'),
-
+	path('community/',views.community_form_view,name='community_form_view'),
+	#path('dashboard/',views.dashboard,name= 'dashboard'),
 ]

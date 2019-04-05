@@ -20,114 +20,6 @@ def home(request):
 def index(request):
     return render(request, 'ocrapp/index.html')
 
-def photo(request):
-    if request.method == 'POST':
-        #uploading images
-        im_form = photo_form(request.POST, request.FILES)
-        if im_form.is_valid():
-            im_form.save()
-            #extracting the file name of the image being uploaded
-            for filename, file in request.FILES.items():
-                f_name = request.FILES[filename].name
-            BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            path =  os.path.join(BASE_DIR, 'media/images')
-            final_path = os.path.join(path,f_name)
-
-
-
-            def ocr_space_file(filename, overlay=False, api_key='20636de03588957', language='eng'):
-                """ OCR.space API request with local file.
-
-                :param filename: Your file path & name.
-                :param overlay: Is OCR.space overlay required in your response.
-                                Defaults to False.
-                :param api_key: OCR.space API key.
-                                Defaults to 'helloworld'.
-                :param language: Language code to be used in OCR.
-                                List of available language codes can be found on https://ocr.space/OCRAPI
-                                Defaults to 'en'.
-                :return: Result in JSON format.
-                """
-
-                payload = {'isOverlayRequired': overlay,
-                           'apikey': api_key,
-                           'language': language,
-                           }
-                with open(filename, 'rb') as f:
-                    r = requests.post('https://api.ocr.space/parse/image',
-                                      files={filename: f},
-                                      data=payload,
-                                      )
-                return r.content.decode()
-
-            #extracting text out of the document
-            test_file = ocr_space_file(filename=final_path, language='eng')
-            test_file = test_file[test_file.index('"ParsedText":')+14:test_file.index('","ErrorMessage"')]
-            result = test_file.split('\\r\\n')
-
-            for word in result:
-                if word.find("DOB") != -1:
-                    request.session['doc_type'] = "aadhar"
-                if word.find("INCOME") != -1:
-                    request.session['doc_type'] = "pan"
-
-            if request.session['doc_type'] == 'aadhar':
-                request.session['doc_name'] = result[2]
-                #request.session['doc_id'] = result[5]
-                #request.session['doc_dob'] = result[3].split(':')[1]
-                for i in result:
-                    x = re.search('DOB', i)
-                    if x:
-                        request.session['doc_dob'] = i.split(':')[1]
-                        break
-                    else:
-                        request.session['doc_dob'] = "Enter your DOB"
-                for i in result:
-                    y = re.search('([0-9]{4} ){2}', i)
-                    if y:
-                        request.session['doc_id'] = i
-                        break
-                    else:
-                        request.session['doc_id'] = "Enter your UIDAI ID"
-
-
-
-            #if request.session['doc_type'] == 'pan':
-                #request.session['doc_name'] = result[5]
-                #request.session['doc_id'] = result[3]
-                #request.session['doc_dob'] = result[9]
-            if request.session['doc_type'] == 'pan':
-                #PAN NUMBER
-                for i in result:
-                    x_id = re.search('([A-Z]{5}[0-9]{4}[A-Z])', i)
-                    if x_id:
-                        request.session['doc_id'] = i
-                        break
-                    else:
-                        request.session['doc_id'] = "Enter your PAN ID"
-                #DOB
-                for i in result:
-                    x_dob = re.search('/', i)
-                    if x_dob:
-                        request.session['doc_dob'] = i
-                        break
-                    else:
-                        request.session['doc_dob'] = "Enter your DOB"
-                #NAME
-                c = re.search('[A-Z0-9]{10}', result[5])
-                if c:
-                    request.session['doc_name'] = result[1]
-                else:
-                    request.session['doc_name'] = result[5]
-
-
-            #displaying the extracted details on the webpage
-            return render(request,'ocrapp/result.html',{'f_name':result})
-            #return redirect('index')
-    else:
-        im_form = photo_form()
-    return render(request,'ocrapp/index.html',{'im_form':im_form})
-
 
 
 #aadhar verification being done here
@@ -304,3 +196,136 @@ def feedback(request):
         username = request.session['username']
         feed_form = feedback_form({'feedback_name':username,'feedback_comment':voice_text})
     return render(request,'ocrapp/feedback.html',{'feedback_form':feed_form})
+
+
+def photo(request):
+    if request.method == 'POST':
+        #uploading images
+        #im_form = photo_form({'im_username':request.session['username']},request.POST, request.FILES)
+        im_form = photo_form(request.POST, request.FILES)
+        if im_form.is_valid():
+            im_form.save()
+            #extracting the file name of the image being uploaded
+            for filename, file in request.FILES.items():
+                f_name = request.FILES[filename].name
+            
+            BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            path =  os.path.join(BASE_DIR, 'media/images/')
+            final_path = os.path.join(path,f_name)
+            im_name = final_path
+
+
+            def ocr_space_file(filename, overlay=False, api_key='20636de03588957', language='eng'):
+                """ OCR.space API request with local file.
+                :param filename: Your file path & name.
+                :param overlay: Is OCR.space overlay required in your response.
+                                Defaults to False.
+                :param api_key: OCR.space API key.
+                                Defaults to 'helloworld'.
+                :param language: Language code to be used in OCR.
+                                List of available language codes can be found on https://ocr.space/OCRAPI
+                                Defaults to 'en'.
+                :return: Result in JSON format.
+                """
+
+                payload = {'isOverlayRequired': overlay,
+                           'apikey': api_key,
+                           'language': language,
+                           }
+                with open(filename, 'rb') as f:
+                    r = requests.post('https://api.ocr.space/parse/image',
+                                      files={filename: f},
+                                      data=payload,
+                                      )
+                return r.content.decode()
+
+            #extracting text out of the document
+            test_file = ocr_space_file(filename=final_path, language='eng')
+            test_file = test_file[test_file.index('"ParsedText":')+14:test_file.index('","ErrorMessage"')]
+            result = test_file.split('\\r\\n')
+
+            for word in result:
+                if word.find("DOB") != -1:
+                    request.session['doc_type'] = "aadhar"
+                if word.find("INCOME") != -1:
+                    request.session['doc_type'] = "pan"
+
+            if request.session['doc_type'] == 'aadhar':
+                request.session['doc_name'] = result[2]
+                #request.session['doc_id'] = result[5]
+                #request.session['doc_dob'] = result[3].split(':')[1]
+                for i in result:
+                    x = re.search('DOB', i)
+                    if x:
+                        request.session['doc_dob'] = i.split(':')[1]
+                        break
+                    else:
+                        request.session['doc_dob'] = "Enter your DOB"
+                for i in result:
+                    y = re.search('([0-9]{4} ){2}', i)
+                    if y:
+                        request.session['doc_id'] = i
+                        break
+                    else:
+                        request.session['doc_id'] = "Enter your UIDAI ID"
+
+
+
+            #if request.session['doc_type'] == 'pan':
+                #request.session['doc_name'] = result[5]
+                #request.session['doc_id'] = result[3]
+                #request.session['doc_dob'] = result[9]
+            if request.session['doc_type'] == 'pan':
+                #PAN NUMBER
+                for i in result:
+                    x_id = re.search('([A-Z]{5}[0-9]{4}[A-Z])', i)
+                    if x_id:
+                        request.session['doc_id'] = i
+                        break
+                    else:
+                        request.session['doc_id'] = "Enter your PAN ID"
+                #DOB
+                for i in result:
+                    x_dob = re.search('/', i)
+                    if x_dob:
+                        request.session['doc_dob'] = i
+                        break
+                    else:
+                        request.session['doc_dob'] = "Enter your DOB"
+                #NAME
+                c = re.search('[A-Z0-9]{10}', result[5])
+                if c:
+                    request.session['doc_name'] = result[1]
+                else:
+                    request.session['doc_name'] = result[5]
+
+
+            #displaying the extracted details on the webpage
+            return redirect("http://127.0.0.1:8000/ocrapp/aadhar")
+            #return render(request,'ocrapp/result.html',{'f_name':result,'im_name':im_name})
+            #return redirect('index')
+        else:
+            return render(request,'ocrapp/verify.html',)
+    else:
+        im_form = photo_form()
+    return render(request,'ocrapp/index.html',{'im_form':im_form})
+
+def community_form_view(request):
+    if request.method == 'POST':
+        c_form = community_form(request.POST,request.FILES)
+        if c_form.is_valid():
+            c_form.save()
+        return render()
+    else:
+        c_form = community_form()
+        return render(request,'ocrapp/comm_post_page.html',{'c_form':c_form})
+
+
+'''def community_filter(request):
+    if request.method === 'POST':
+        
+
+    else:
+        return render(request,'ocrapp/about.html')
+        
+'''
