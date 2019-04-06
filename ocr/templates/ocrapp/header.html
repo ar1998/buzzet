@@ -17,8 +17,8 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-            <li><a href=#>Download App </a></li>
-            <li><a href=#>About</a></li>
+            <li><a href="https://github.com/infiniteoverflow/My-Android-APKs/blob/master/APKs/dotpy.apk?raw=true">Download App </a></li>
+            <li><a href="{% url 'ocrapp:about' %}">About</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             {% if not user.is_authenticated %}
@@ -31,6 +31,11 @@
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ user.username }}<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Dashboard</a></li>
+                    
+                    <li><a href="{% url 'ocrapp:investor' %}">Investors</a></li>
+                    
+                    <li><a href="{% url 'ocrapp:investee' %}">Investees</a></li>
+                    <li ><a href="{% url 'ocrapp:community_form_view' %}">Community Post</a></li>
                     <li><a href="{% url 'ocrapp:logout' %}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
                 </ul>
             </li>
@@ -109,7 +114,6 @@
     </form>
 </div>
 
-<script>
 
 <script>
     // Get the modal
@@ -132,4 +136,5 @@
             modal.style.display = "none";
         }
     }
+
 </script>

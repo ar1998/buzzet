@@ -1,0 +1,66 @@
+{% extends "ocrapp/base.html" %}
+{% load static %}
+{% block extrahead %}
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'style/about.css' %}">
+
+<style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 30%;
+  border-radius: 5px;
+  margin:10px 30px;
+  padding: 5px 10px;
+  
+  }
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+img {
+  border-radius: 5px 5px 0 0;
+}
+
+.container {
+  padding: 2px 16px;
+}
+
+.closebtn {
+  padding-left: 10px;
+  color: #888;
+  font-weight: bold;
+  float: right;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.closebtn:hover {
+  color: #000;
+}
+
+{% endblock %}
+{% block body_block %}
+<br><br><br><br>
+
+<div style="padding-left:400px;border: 2px solid red;border-radius: 5px;border-width:60%;padding-bottom:40px;">
+<h2 style="padding-left:150px;">Literally , Talk to US</h2>
+<p style="color:red;padding-left:150px;"><b>(Speak after you click select the language)</b></p>
+   <a href="feedback_view"><button type="submit" class="english" value="upload" >English</button></a>
+   <a href="feedback_hindi"><button type="submit" class="hindi" value="upload" >Hindi</button></a>
+   </div>
+
+   {% for feeds in feed %}
+   <div class="card">
+              
+              <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+              <h2>{{feeds.feedback_comment}}</h2>
+              <div class="container" style="padding-lleft:1000px;">
+              
+                <h3 > - {{feeds.feedback_name}}</h3>
+                  
+              </div>
+            </div>
+   {% endfor %}
+{% endblock %}

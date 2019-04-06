@@ -3,14 +3,26 @@
 {% block extrahead %}
 <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'style/index.css' %}">
+
 {% endblock %}
 {% block body_block %}
-    <br><br><br><br><br><br><br><br>
-    <div  class="">
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ im_form.as_p }}
-        <button type="submit" class="submit_card" name="image" value="upload" target="{% url 'ocrapp:aadhar' %}">Upload</button>
-      </form>
-    </div>
+<br><br><br><br><br><br>
+<div class="photo_read">Hover on the avatar to Upload the ID Card</div><br><br>
+
+
+<div class="container">
+
+  <img src="/static/images/avatar.png" alt="Avatar" class="image" style="width:100%">
+  
+
+
+  <form method = "post" enctype="multipart/form-data">
+  {% csrf_token %}
+        <label for="im"></label>
+        <input class="text" type="file" name="im" placeholder="Choose File" required>
+<br><br>
+<button type="submit" class="submit_id" name="image" value="upload" onclick="myFunction()">Upload</button>
+</form>
+</div>
+
 {% endblock %}

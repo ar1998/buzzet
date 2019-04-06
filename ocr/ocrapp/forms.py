@@ -4,7 +4,7 @@ from ocrapp.models import *
 class photo_form(forms.ModelForm):
     class Meta:
         model = photo
-        fields = ['im',]
+        fields = ['im']
 
 class aadhar_from(forms.ModelForm):
     class Meta:
@@ -18,12 +18,24 @@ class pan_from(forms.ModelForm):
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, label = 'Your Password')
-
+    #picture = UserProfileInfo.picture
     class Meta():
         model = User
         fields = ('username','email','password')
+
 
 class feedback_form(forms.ModelForm):
     class Meta:
         model = feedback
         fields = ['feedback_name','feedback_comment']
+
+class community_form(forms.ModelForm):
+    class Meta:
+        model = community
+        fields = ['name','tag','amount','purpose','descr','exp_profit','rating']
+
+class sub_form(forms.ModelForm):
+    
+    class Meta:
+        model = sub
+        fields = ("name","sub_status")

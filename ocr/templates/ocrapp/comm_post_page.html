@@ -1,0 +1,21 @@
+{% extends "ocrapp/base.html" %}
+{% load static %}
+{% block extrahead %}
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+
+{% endblock %}
+{% block body_block %}
+  
+  <br><br><br>
+  <h1 style="margin-left:500px;"> Community Form Post</h2>
+  <br>
+<div style="margin:10px 100px 20px 100px;">
+  <form  method = "post" enctype="multipart/form-data" >
+      {% csrf_token %}
+      {{ c_form.as_p }}
+      <button type="submit" class="signupbtn">Upload</button>
+    </form>
+   </div> 
+
+
+{% endblock %}
