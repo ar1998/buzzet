@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>succesfull</title>
-  </head>
-  <body>
-      <h1>{{ name }} registration succesfull !</h1>
-  </body>
-</html>
+{% extends "ocrapp/base.html" %}
+{% load static %}
+{% block extrahead %}
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'style/about.css' %}">
+{% endblock %}
+{% block body_block %}
+<br><br><br><br>
+
+<h1>{{ name }} registration succesfull !</h1>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends "ocrapp/base.html" %}
+{% load static %}
+{% block extrahead %}
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+
+
+
+<style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 30%;
+  border-radius: 5px;
+  margin:10px 30px;
+  padding: 5px 10px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+img {
+  border-radius: 5px 5px 0 0;
+}
+
+.container {
+  padding: 2px 16px;
+}
+
+.closebtn {
+  padding-left: 10px;
+  color: #888;
+  font-weight: bold;
+  float: right;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.closebtn:hover {
+  color: #000;
+}
+</style>
+{% endblock %}
+{% block body_block %}
+  <!--{% if user.is_superuser %}
+    {% for post in investee_list %}
+    {% if post.name == user.username %}
+    {% else %}
+
+    <div>
+      <p>{{post.name}}</p>
+      <p>{{post.tag}}</p>
+      <p>{{post.amount}}</p>
+      <p>{{post.purpose}}</p>
+      <p>{{post.descr}}</p>
+      <p>{{post.exp_profit}}</p>
+      <p>{{post.rating}}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    <h1>Only Admin has Access to this page</h1>
+    {% endif %}
+-->
+<br><br><br>
+<h1 style="margin-left:600px;">List of Investees</h1>
+<br><br>
+{% if user.is_superuser %}
+    {% for post in investee_list %}
+        {% if post.name == user.username %}
+        {% else %}
+                <div class="card">
+              
+              <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+              <h2>{{post.name}}</h2>
+              <div class="container">
+              
+                <div>Tags : {{post.tag}}</div>
+                  <div>Amount : {{post.amount}}</div>
+                  <div>Purpose : {{post.purpose}}</div>
+                  <div>Description : {{post.descr}}</div>
+                  <div>Expected profit return term : {{post.exp_profit}}</div>
+                  <div>Post : {{post.rating}}</div>
+              </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% else %}
+
+<!--
+        {% for sub_try in sub %}
+              {% if sub_try.sub_status == 1 and sub_try.name != user.username %}
+
+                    {% for post in investee_list %}
+                          
+
+                                {% if post.amount <= 100000 and post.name != user.username %}
+                                      <div class="card">
+
+                                      <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+                                      <h2>{{post.name}}</h2>
+                                      <div class="container">
+                                      
+                                      <div>Tags : {{post.tag}}</div>
+                                      <div>Amount : {{post.amount}}</div>
+                                      <div>Purpose : {{post.purpose}}</div>
+                                      <div>Description : {{post.descr}}</div>
+                                      <div>Expected profit return term : {{post.exp_profit}}</div>
+                                      <div>Post : {{post.rating}}</div>
+                                      </div>
+                                      </div>
+                                      
+                                {% else %}
+                                       
+                                {% endif %}
+                          
+                    {% endfor %}
+
+
+              {% endif %}
+              
+        {% endfor %}  -->
+        {% for s in sub %}
+
+                <div class="card">
+
+                <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+                <h2>{{s.name}}</h2>
+                <div class="container">
+                
+                <div>Tags : {{s.tag}}</div>
+                <div>Amount : {{s.amount}}</div>
+                <div>Purpose : {{s.purpose}}</div>
+                <div>Description : {{s.descr}}</div>
+                <div>Expected profit return term : {{s.exp_profit}}</div>
+                <div>Post : {{s.rating}}</div>
+                </div>
+                </div>
+          {% endfor %}
+    {% endif %}
+  </body>
+</html>
+
+{% endblock %}

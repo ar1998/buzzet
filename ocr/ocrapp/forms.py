@@ -32,4 +32,10 @@ class feedback_form(forms.ModelForm):
 class community_form(forms.ModelForm):
     class Meta:
         model = community
-        fields = ['tag','amount','purpose','descr','exp_profit']
+        fields = ['name','tag','amount','purpose','descr','exp_profit','rating']
+
+class sub_form(forms.ModelForm):
+    
+    class Meta:
+        model = sub
+        fields = ("name","sub_status")
